@@ -3,35 +3,28 @@ int main() {
 	int n;
 	scanf("%d", &n);
 
-	for(int i=1; i<=2*n-1;i++){
-		int j=0;
-		if(j<i){
-			for(int j=0; j<i; j++){
-				printf("*");
-			}
-        		printf("\n");
+	for(int i=0; i<n; i++){
+		for(int j=(n*2)-1; j>i; j--){
+			printf("*");
 		}
-		else{
-			for(int j=n; j<i; j++){
-				printf("*");
-			}
-        		printf("\n");
+		printf("\n");
+		for(int k=0; k<=i; k++){
+			printf(" ");
 		}
-/*		if(i<n){
-			for(int j=0; j<n; j++){
-				printf("*");
-			}
-			
-        	printf("\n");
-		}
-		else{
-			for(int k=n-1; i<n; k++){
-				printf("*");
-			}	
-        	printf("\n");
-		}*/
 	}
+	
+	printf("\n");
 
-        return 0;
+	for(int i=1; i<n ;i++){
+		for(int j=2*i+1; j<=2*n+1; j++){
+			printf("*");
+		}
+		printf("\n");
+		for(int k=0; k<=i; k++){
+			printf(" ");
+		}
+	}
+	
+	return 0;
 }
 

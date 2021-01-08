@@ -9,8 +9,21 @@ int main(){
                 arr[i] = i+1;
         }
 
-        int temp =0;
+	int temp = 0;
 
+	do{
+		int t=0;
+		int n=0;
+		while(t!=m){
+			printf("%d ", arr[temp]); n++;
+			if(n==m){
+				printf("\n");
+			}
+			t++;
+		}
+		temp++;
+	}while(temp!=n);
+/*
         for(int i=0; i<n; i++){
                 for(int j=i+1; j<n; j++){
                         for(int k=j+1; k<n; k++){
@@ -22,4 +35,5 @@ int main(){
         }
 
         printf("%d", max);
+*/
 }

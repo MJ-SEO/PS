@@ -25,5 +25,5 @@ deque(){
 int main(){
 	node_t * que;
 	que = alloc();
-
+	
 }

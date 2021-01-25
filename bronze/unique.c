@@ -1,48 +1,46 @@
 #include <stdio.h>
 #include <string.h>
-
+#include <stdlib.h>
 int main(){
-        int n;
-        scanf("%d", &n);
-	int arr[n][2];
+        int player;
+	int cards = 3;
+	char buf[128];
+        scanf("%d", &player);
+	int **arr;
+	int *sum;
+	arr = (int**)malloc(sizeof(int*)* player);
+	sum = (int*)malloc(sizeof(int) * player);
 
-        for(int i=0; i<n; i++){
+	for(int i=0; i<player; i++){
+		arr[i] = (int*)malloc(sizeof(int) * cards);
+	}
+	scanf("%c", buf);
+        for(int i=0; i<player; i++){
 		for(int j=0; j<3; j++){
-			scanf("%d", &arr[i][j]);
+			scanf("%d ", &arr[i][j]);
 		}
         }
-	int j=0;
-	
-	for(int i=0; i<5; i++){
-		int num = arr[i][j];
-		for(int k=0; k<5; k++){
-			if(num==arr[k][j]){
-				
-			}
-		}
-		j++;
-	}
-	for(int i=0; i<3; i++){
-		for(int j=0; j<n; j++){
-			for(int k=0; k<n; k++){
-				
-			}
-			arr[j][i] 		
-
-
-			if(arr[j][i] == arr[j+1][i]){
-				arr[j][i] = 0;
-				arr[j+1][i] = 0;
-			}		
-		}
-	}
-
-	for(int i=0; i<n; i++){
-		int sum=0;
+	for(int i=0; i<player; i++){
 		for(int j=0; j<3; j++){
-			sum+=arr[i][j];
+			sum[i] += arr[i][j];
 		}
-		printf("%d\n", sum);
+	}
+	for(int k=0; k<player; k++){
+
+	for(int i=0; i<3; i++){
+		int temp = arr[k][i];
+		for(int j=0; j<player; j++){
+			if(k==j) continue;
+//			printf("Temp: %d, arr[%d][%d]: %d\n", temp, j, i, arr[j][i]);
+			if(temp == arr[j][i]){
+//				printf("same\n");
+				sum[k] -= arr[j][i];
+				break;	
+			}
+		}
+	}
+	}
+	for(int i=0; i<player; i++){
+		printf("%d\n", sum[i]);
 	}
 }
-

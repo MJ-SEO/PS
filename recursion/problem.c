@@ -1,27 +1,31 @@
 #include <stdio.h>
 
-int fx(int n){
-	int sum = 0;
-	while(n>10){
-		while(n>10){
-			sum += n%10;
-			n = n/10;
-		}
-		fx(sum);	
-	}
+int a = 0;
 
-	return 0;
+int fx(long int n){
+	int sum = 0;
+	if(n<10){
+		if(n%3 == 0) return a;
+		else return 0;
+	}
+	while(n>10){
+		sum+=n/10;
+		n %= 10;
+	}
+	sum += n;
+	a++;
+	fx(sum);
 }
 
 int main(){
-	int n;
+	long int n;
 	int result;
 
-	scanf("%d", &n);
+	scanf("%ld", &n);
 
 	result = fx(n);
 
-	printf("%d\n", n);
+	printf("%ld\n", n);
 
 	if(result!=0){
 		printf("YES");

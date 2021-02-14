@@ -3,6 +3,7 @@
 #include <queue>
 #include <utility>
 #include <string>
+#include <algorithm>
 
 using namespace std;
 #define X first
@@ -19,23 +20,20 @@ int main(){
 	int n, m;
 	scanf("%d %d", &n, &m);
 
+	queue<pair<int,int>> que;
 	for(int i=0; i<m; i++){
 		for(int j=0; j<n; j++){
 			scanf("%d", &map[i][j]);
+			if(map[i][j] == 1){
+//				visited[i][j] = 1;
+//				result[i][j] = 1;
+				que.push({i,j});			
+			}
+			if(map[i][j] == 0){
+				result[i][j] = -1;
+			}
 		}
 	}
-
-	for(int i=0; i<m; i++){
-		for(int j=0; j<n; j++){
-			printf("%d ", map[i][j]);
-		}
-		printf("\n");
-	}
-
-	queue<pair<int,int>> que;
-	visited[0][0] = 1;
-	result[0][0] = 1;
-	que.push({0,0});
 	
 	while(!que.empty()){
 		pair<int,int> cur = que.front(); que.pop();
@@ -44,15 +42,26 @@ int main(){
 		for(int i=0; i<4; i++){
 			int x = cur.X + dx[i];
 			int y = cur.Y + dy[i];	
-			if(x < 0 || x >= n || y < 0 || y >= m) continue;
-			if(visited[x][y] || map[x][y] != 1) continue;
-			visited[x][y] = 1;
+			if(x < 0 || x >= m || y < 0 || y >= n) continue;
+			if(result[x][y] >= 0) continue;
 			que.push({x,y});
 			result[x][y] = result[cur.X][cur.Y] + 1;
 		}
 	}
+	int nn = 0;
 
-	printf("%d\n", result[n-1][m-1]);	
+
+	for(int i=0; i<m; i++){
+		for(int j=0; j<n; j++){
+			if(result[i][j] == -1){
+				printf("-1\n");
+				return 0;
+			}
+			nn = max(nn, result[i][j]);
+		}
+	}     
+
+	printf("%d\n", nn);
 		
 	return 0;
 }

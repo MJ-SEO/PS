@@ -1,25 +1,52 @@
 #include <iostream>
-#include <cstring>
-#include <stdlib.h>
-#include <deque>
-#include <vector>
+#include <list>
+#include <string>
+#pragma warning(disable:4996)
 
 using namespace std;
 
-int main(){
-        int n;
-	string buf;
-        cin >> n;
-	getline(cin, buf);
+int main() {
+    int n;
+    cin >> n;
 
-        deque<int> deck;
+    while(n--){
+        string str;
+    	cin >> str;
 
-        for(int i=0; i<n; i++){
-                string str;
-                getline(cin, str);
-	//      cout << "DEBUG str: " << str << endl;	
-		
-		
+        list<char> llist;
+        list<char>::iterator cursor;
+
+        cursor = llist.begin();
+
+	int size = str.size();
+	int idx = 0;
+
+	while(idx < size){
+		if(str[idx] == '<'){
+                    if(cursor != llist.begin()){
+                     cursor--;
+                   }
+                }
+                else if(str[idx] == '>'){
+                    if(cursor != llist.end()){
+                      cursor++;
+                    }
+                }
+                else if(str[idx] == '-'){
+                    if(cursor != llist.begin()){
+			llist.erase((--cursor)++);
+		    }
+		}
+                else{
+                  llist.insert(cursor, str[idx]);
+                }
+		 
+		idx++;
 	}
-        return 0;
+
+	for(auto x : llist){
+		printf("%c", x);
+	}
+	printf("\n");
+      }       
 }

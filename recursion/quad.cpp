@@ -2,38 +2,37 @@
 
 using namespace std;
 
-int map[130][130];
+char map[65][65];
 
-int white;
-int blue;
 
-void func(int y, int x, int size){
+void func(int x, int y, int size){
 	
-	int flag = map[y][x];
+	char flag = map[x][y];
 
-	for(int i=y; i< y+size; i++){	
-		for(int j = x; j< x+size; j++){
-			if(flag == 0 && map[i][j] == 1){
-				flag = 2;
+	for(int i=x; i< x+size; i++){	
+		for(int j = y; j< y+size; j++){
+			if(flag == '0' && map[i][j] == '1'){
+				flag = '2';
 			}
-			else if(flag == 1 && map[i][j] == 0){
-				flag = 2;
+			else if(flag == '1' && map[i][j] == '0'){
+				flag = '2';
 			}
-			if(flag == 2){
-				func(y, x, size/2);
-				func(y, x + size/2, size/2);
-				func(y + size/2, x, size/2);
-				func(y + size/2, x + size/2, size/2);
+			if(flag == '2'){
+				cout << "(";
+				func(x, y,  size/2);
+				func(x, y + size/2, size/2);
+				func(x + size/2, y, size/2);
+				func(x + size/2, y + size/2, size/2);
+				cout << ")";
 				return;
 			}
 		}
 	}
-
-	if(flag == 0){
-		white++;
+	if(flag == '0'){
+		cout << "0";
 	}
 	else{
-		blue++;
+		cout << "1";
 	}
 }
 
@@ -41,21 +40,18 @@ void func(int y, int x, int size){
 int main(){
 	int n;
 	cin >> n;
-
-	for(int i=0; i<130; i++){
-		for(int j=0; j<130; j++){
-			map[i][j] = 2;
-		}
-	}
-
+	char buf[2];
+	scanf("%c", buf);
+	
 	for(int i=0; i<n; i++){	
 		for(int j=0; j<n; j++){
-			scanf("%d", &map[i][j]);
+			scanf("%c", &map[i][j]);
 		}
+		scanf("%c", buf);
 	}
 
 	func(0, 0, n);
 
-	cout << white << "\n" << blue << "\n";
+//	cout << white << "\n" << blue << "\n";
 	return 0;
 }

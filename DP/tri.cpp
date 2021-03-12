@@ -19,15 +19,18 @@ int main(){
 	}
 	
 	dp[1][0] = arr[0][0];
-	cout << dp[1][0] << "\n";
 	for(int i=2; i<=n; i++){
 		for(int j=0; j<i; j++){
-			if(i==2){
+			if(j==0){
 				dp[i][j] = dp[i-1][j/2] + arr[i-1][j];
-				cout << dp[i][j] << " ";	   
-			}		
+			}
+			else if(j==i-1){
+				dp[i][j] = dp[i-1][j/2] + arr[i-1][j];
+			}
+			else{
+				dp[i][j] = max(dp[i-1][j-1] + arr[i-1][j], dp[i-1][j] + arr[i-1][j]);
+			}
 		}
-		cout << "\n";
 	}
 
 	int result = 0;

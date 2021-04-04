@@ -1,15 +1,27 @@
 #include <stdio.h>
 
+int dp[42];
+int dp2[42];
+
 int main(){
 	int n;
 	scanf("%d", &n);
-	long long f[90];
 	
-	f[0] = 0;
-	f[1] = 1;
+	dp[0] = 1;
+	dp2[0] = 0;
 
-	for(int i=2; i<=n; i++){
-		f[i] = f[i-1] + f[i-2];
+	dp[1] = 0;
+	dp2[1] = 1;
+
+	for(int i=2; i<=40; i++){
+		dp[i] = dp[i-1] + dp[i-2];
+		dp2[i] = dp2[i-1] + dp2[i-2];
 	}
-	printf("%Ld\n", f[n]);
+
+	for(int i=0; i<n; i++){
+		int temp;
+		scanf("%d", &temp);
+
+		printf("%d %d\n", dp[temp], dp2[temp]);		
+	}
 }

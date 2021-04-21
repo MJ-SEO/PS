@@ -19,21 +19,6 @@ int main(){
 		getline(cin, op);
 		if(op.find("push") != string::npos){
 			int num = stoi(op);
-				
-		/*
-			op.replace(0,4,"");
-			int num = atoi(op.c_str());			
-			st.push(num);
-
-			for(int i=0; i<op.length(); i++){
-				if(atoi(op.c_str()) !=0){
-					num = atoi(op.c_str());
-					break;
-				}
-			}
-*/
-//			cout << "str:" << op << "\n";
-//			cout << "num:" << num << endl;
 		}
 		if(op=="pop"){
 			if(st.empty()){

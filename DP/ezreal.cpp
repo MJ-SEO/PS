@@ -15,7 +15,6 @@ int main(){
 	dp[3] = 1;
 	dp[4] = 3;
 
-	int
 	while(){
 		long long temp = 0;
 		for(int j=2; j<=n-2; j++){

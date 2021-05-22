@@ -9,7 +9,7 @@ vector<int> graph[1005];
 int visited[1005];
 queue<int> que;
 
-void BFS(int n){
+void BFS(){
 	while(!que.empty()){
 		int temp = que.front(); que.pop();
 		for(int i=0; i < graph[temp].size(); i++){
@@ -37,17 +37,15 @@ int main(){
 		graph[u].push_back(v);
 		graph[v].push_back(u);
 	}
-	
 
 	for(int i=1; i<=n; i++){
 		if(visited[i] == 0){
 			que.push(i);
 			visited[i] = 1;
-			BFS(i);
+			BFS();
 			cc++;
 		}
 	}
-
 
 	cout << cc << "\n";
 	return 0;

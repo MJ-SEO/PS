@@ -4,8 +4,9 @@
 #include <vector>
 
 using namespace std;
+using tp = tuple<int, int, int>;
 
-vector<int> graph[100005];
+vector<pair<int, int>> graph[100005];
 int result[100005];
 int visited[100005];
 queue<int> que;
@@ -30,8 +31,8 @@ int main(){
     cin >> n;
 
     for(int i=1; i<n; i++){
-        int start, end;
-        cin >> start >> end;
+        int parent, child, weight;
+        cin >> parent >> child >> weight;
         graph[start].push_back(end);
         graph[end].push_back(start);
     }

@@ -54,6 +54,7 @@ while(1){
 			int y = cur.Y + dy[i];
 
 			if(x<0 || x>=n || y<0 || y>=n) continue;
+	
 			if(visited[x][y] || map[x][y] > shark) continue;
 			if(map[x][y] < shark && map[x][y] > 0){
 				dist[x][y][1] = 1;

@@ -63,6 +63,9 @@ int main(){
 
 	transpose(v);
 
+	sort();
+
+	DFS(i);
 	
 	return 0;
 }

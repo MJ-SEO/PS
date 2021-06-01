@@ -10,6 +10,7 @@ int n, m;
 int d[1005];
 const int INF = 1e8+10;
 vector<pii> graph[1005];
+int map[1005][1005];
 
 int main(){
         ios::sync_with_stdio(0);
@@ -22,9 +23,9 @@ int main(){
 	for(int i=0; i<m; i++){
 		int start, end, cost;
 		cin >> start >> end >> cost;
-		graph[start].push_back({cost,end});		
+		graph[start].push_back({cost,end});	
 	}
-/*
+
 	cout << "==============Shape of graph==============\n";
 	for(int i=1; i<=n; i++){
 		cout << i << ": ";
@@ -34,7 +35,7 @@ int main(){
 		cout << "\n";
 	}
 	cout << "==========================================\n";
-*/
+
 
 	int begin, dest;
 	cin >> begin >> dest;

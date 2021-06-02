@@ -9,23 +9,28 @@ int dt = 0;
 vector<int> graph[10005];
 vector<int> trans_graph[10005];
 int source[10005];
-int fin[10005];
+pair<int, int> fin[10005]; // pair?
 int color[10005];
+int disjoint_set = 0;
+int flag;
+vector<int> result[10005];
 
-
-void DFS(int n){
-//	cout << "DEBUG in DFS " << graph[n][m].node << " " << graph[n][m].color << "\n";
+bool DFS(int n, vector<int> g[]){
+	if(color[n] == 2) return false;
+	cout << n << "->";
+	result[disjoint_set].push_back(n);
 	color[n] = 1;
 	dt++;
 	source[n] = dt;
-	for(int i=0; i<graph[n].size(); i++){
-		if(color[graph[n][i]] == 0){
-			DFS(graph[n][i]);
+	for(int i=0; i<g[n].size(); i++){
+		if(color[g[n][i]] == 0){
+			DFS(g[n][i], g);
 		}
 	}
 	color[n] = 2;
 	dt++;
-	fin[n] = dt;
+	fin[n].first = dt;
+	fin[n].second = n;
 }	
 
 void transpose(int nodes){
@@ -52,21 +57,63 @@ int main(){
 	for(int i=1; i<=v; i++){
 		for(int j=0; j<graph[i].size(); j++){
 			if(color[i] == 0){
-				DFS(i);      
+				DFS(i, graph);      
 			}
 		}
 	}
-
+	
 	for(int i=1; i<=v; i++){
-		cout << "[DEBUG] node: " << i << " " << source[i] << " " << fin[i] << "\n";
+		cout << i << ": ";
+		for(int j=0; j<graph[i].size(); j++){
+			cout << "->" << graph[i][j];
+		}
+		cout << "\n";
 	}
 
-	transpose(v);
+	for(int i=1; i<=v; i++){
+		cout << "[DEBUG] node: " << fin[i].second << " (" << source[i] << "," << fin[i].first << ")\n";
+	}
 
-	sort();
 
-	DFS(i);
+	for(int i=1; i<=v; i++){
+		cout << i << ": ";
+		for(int j=0; j<trans_graph[i].size(); j++){
+			cout << "->" << trans_graph[i][j];
+		}
+		cout << "\n";
+	}
+
+	sort(fin+1, fin+v+1, greater<pair<int,int>>());
+	for(int i=0; i<=v; i++)
+		color[i] = 0;
+
+
+	for(int i=1; i<=v; i++){
+		cout << "[DEBUG] node: " << fin[i].second << " (" << source[i] << "," << fin[i].first << ")\n";
+	}
+
 	
+	for(int i=1; i<=v; i++){	
+		cout <<"durldurl " << i << " :";
+		DFS(fin[i].second, trans_graph);
+		disjoint_set++;
+		cout << "\n";
+	}
+
+	for(int i=0; i<=v; i++){
+		sort(result[i].begin(), result[i].end());
+	}
+
+
+	cout << "\n";
+	for(int i=0; i<=v; i++){
+		cout << i << ": ";
+		for(int j=0; j<result[i].size(); j++){
+			cout << result[i][j] << " ";
+		}
+		cout << "-1 \n";
+	}
+
 	return 0;
 }
 

@@ -6,9 +6,9 @@ using namespace std;
 
 int dt = 0;
 
-pair<int, int> fin[10005]; 
 int source[10005];
 int color[10005];
+pair<int, int> fin[10005]; 
 int disjoint_set = 0;
 int flag;
 vector<int> result[10005];
@@ -22,7 +22,6 @@ bool DFS(int n, vector<int> g[], int tr){
 		result[disjoint_set].push_back(20000);
 		return false;
 	}
-	cout << n << "->";
 	if(tr == 1)
 		result[disjoint_set].push_back(n);
 
@@ -38,12 +37,13 @@ bool DFS(int n, vector<int> g[], int tr){
 	dt++;
 	fin[n].first = dt;
 	fin[n].second = n;
-}	
+	return true;
+}
+
 
 int main(){
 	ios::sync_with_stdio(0);
 	cin.tie(0);
-
 	vector<int> graph[10005];
 	vector<int> trans_graph[10005];
 	
@@ -56,7 +56,6 @@ int main(){
 		graph[start].push_back(end);
 		trans_graph[end].push_back(start);
 	}
-
 	for(int i=1; i<=v; i++){
 		for(int j=0; j<graph[i].size(); j++){
 			if(color[i] == 0){
@@ -64,38 +63,16 @@ int main(){
 			}
 		}
 	}
-
-	cout << "\n";	
-	for(int i=1; i<=v; i++){
-		cout << i << ": ";
-		for(int j=0; j<graph[i].size(); j++){
-			cout << "->" << graph[i][j];
-		}
-		cout << "\n";
-	}
-
-	for(int i=1; i<=v; i++){
-		cout << "[DEBUG] node: " << fin[i].second << " (" << source[i] << "," << fin[i].first << ")\n";
-	}
-
 	sort(fin+1, fin+v+1, greater<pair<int,int>>());
-
 	for(int i=0; i<=v; i++)
 		color[i] = 0;
 
-	for(int i=1; i<=v; i++){
-		cout << "DEBUG fin: " << fin[i].second << " " << fin[i].first << "\n";
-	}
-	
 	int t[v+1];
 	for(int i=1; i<=v; i++) t[i] = fin[i].second;
 
-	cout << "\n";
 	for(int i=1; i<=v; i++){	
-		cout <<"[DEBUG2]" << i << ", " << t[i] << " :";
 		DFS(t[i], trans_graph, 1);
 		disjoint_set++;
-		cout << "\n";
 	}
 
 	int zz=0;
@@ -106,15 +83,6 @@ int main(){
 		}
 	}
 	sort(result, result+v, compare);
-
-	cout << "\n";	
-	for(int i=1; i<=v; i++){
-		cout << i << ": ";
-		for(int j=0; j<trans_graph[i].size(); j++){
-			cout << "->" << trans_graph[i][j];
-		}
-		cout << "\n";
-	}
 
 	cout << zz << "\n";
 	for(int i=0; i<zz; i++){

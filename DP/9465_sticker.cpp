@@ -4,7 +4,7 @@
 
 using namespace std;
 
-int dp[100005][5];
+int dp[100005][2];
 
 int main(){
 	ios::sync_with_stdio(0);
@@ -17,20 +17,20 @@ int main(){
 		int num;
 		int sum = 0;
 		cin >> num;
-		int table[2][num] = {0,};
+		int table[num][2] = {0,};
 		for(int j=0; j < num; j++){
 			int temp;
 			cin >> temp;
-			table[0][j] = temp;
+			table[j][0] = temp;
 		}
 		for(int j=0; j < num; j++){
 			int temp;
 			cin >> temp;
-			table[1][j] = temp;
+			table[j][1] = temp;
 		}
 
-		
-
+		dp[i][0] = table[i][0];
+		dp[i][1] = table[i][1]; 
 	}
 
 

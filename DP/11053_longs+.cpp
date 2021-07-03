@@ -32,9 +32,11 @@ int main(){
 	}
 
 	for(int i=0; i<n; i++){
+		cout << d[i] << " ";
 		result = max(result, d[i]);
 	}
-	
+	cout << "\n";
+
 	cout << result << "\n";
 
 }

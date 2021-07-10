@@ -18,7 +18,9 @@ int main(){
 		string op;
 		getline(cin, op);
 		if(op.find("push") != string::npos){
-			int num = stoi(op);
+			op.replace(0,4,"");	
+			int num = atoi(op.c_str());
+			st.push(num);
 		}
 		if(op=="pop"){
 			if(st.empty()){

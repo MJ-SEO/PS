@@ -51,7 +51,7 @@ int main(){
 			}
 			else{
 				int num = st.top();
-				cout << num << endl;
+			i	cout << num << endl;
 			}
 		}
 //		getline(cin, buf);

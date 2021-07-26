@@ -4,21 +4,17 @@
 
 using namespace std;
 
-int a[50000];
-int b[50000];
+int gdc(int a, int b){
+	while (b != 0) {
+		int r = a%b;
+		a = b;
+		b = r;
+	}
+	return a;
+}
 
 int getlcm(int a, int b){
-	int r1 = 0, r2 =0;
-
-	for(int i=0; r1<=45000; i++){
-				
-	}
-
-	for(int i=0; r2<=45000; i++){
-
-	}
-
-	return result;
+	return a*b/gdc(a,b);
 }
 
 int main(){
@@ -28,15 +24,14 @@ int main(){
 	int n;
 	cin >> n;
 
-	for(int i=0; i<3; i++){
-		int a, b;
+	for(int i=0; i<n; i++){
+		int a, b, res;
 		cin >> a >> b;
 
-		int lcm = getlcm(a, b);
+		res = getlcm(a,b);
 
-		cout << lcm;
+		cout << res << "\n";
 	}
 
 	return 0;
 }
-

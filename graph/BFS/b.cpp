@@ -23,7 +23,6 @@ int main(){
 	cin >> n;
 	int result = 100000;
 	queue<pair<int,int>> que;
-	queue<pair<int,int>> q2;
 
 	for(int i=0; i<n; i++){
 		for(int j=0; j<n; j++){

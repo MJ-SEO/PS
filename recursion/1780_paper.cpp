@@ -25,6 +25,7 @@ void func(int x, int y, int size){
 			else if(flag == -1 && map[i][j] != -1){
 				flag = 2;
 			}
+
 			if(flag == 2){
 				func(x, y, size/3);
 				func(x, y + size/3, size/3);

@@ -8,3 +8,5 @@
 | 11053 | [가장 긴 증가하는 부분 수열](https://www.acmicpc.net/problem/11053) | [풀이](https://github.com/MJ-SEO/PS/tree/master/DP/11053_longs+.cpp) |
 | 11072 | [가장 긴 감소하는 부분 수열](https://www.acmicpc.net/problem/11072) | [풀이](https://github.com/MJ-SEO/PS/tree/master/DP/11072_longs-.cpp) |
 | 2565 | [전깃줄](https://www.acmicpc.net/problem/2565) | [풀이](https://github.com/MJ-SEO/PS/tree/master/DP/2565_elecline.cpp) |
+| 9184 | [신나는 함수 실행](https://www.acmicpc.net/problem/9184) | [풀이](https://github.com/MJ-SEO/PS/tree/master/DP/9184_exfunc.cpp) |
+| 11054 | [가장 긴 바이토닉 부분 수열](https://www.acmicpc.net/problem/11054) | [풀이](https://github.com/MJ-SEO/PS/tree/master/DP/11054_bitonic.cpp) |

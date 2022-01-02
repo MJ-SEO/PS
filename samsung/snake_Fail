@@ -1,0 +1,200 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <queue>
+#include <deque>
+#include <cstring>
+
+using namespace std;
+
+int map[101][101];
+int tail[101][101];
+pair<int, int> head;
+
+void move(int dir){
+	if(dir == 1){
+		head.second++;
+	}
+	else if(dir == 2){
+		head.first++;	
+	}
+	else if(dir == 3){
+		head.second--;
+	}
+	else{
+		head.first--;
+	}
+}
+
+void showmap(int t, int N){
+	for(int i=1; i<=N; i++){
+		for(int j=1; j<=N; j++){
+			if(t == 1)
+				cout << map[i][j] << " ";	
+			else
+				cout << tail[i][j] << " ";
+		}
+		cout << "\n";
+	}
+}
+
+int main(){
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	int second = 0;
+
+	int N, K;
+	cin >> N >> K;
+
+	for(int i = 0; i < K; i++){
+		int row, col;
+		cin >> row >> col;
+		map[row][col] = 1;;
+	}
+
+	int L;
+	cin >> L;
+
+	queue<char> que; 
+	int accum = 0;
+
+	for(int i = 0; i < L; i++){
+		int sec;
+		char direction;
+		cin >> sec >> direction;
+		for(int j=accum; j<sec; j++){
+			que.push('S');
+		}
+		que.push(direction);
+		accum = sec;
+	}
+
+	head.first = 1;
+	head.second = 1;
+
+	int dir = 1;
+	int length = 1;
+
+	deque<char> deck;
+
+	while(!que.empty()){
+		
+		int cx = head.first;
+		int cy = head.second;
+		int t_dir = dir;
+		int d_counter = 0;
+
+		for(int i=1; i<length; i++){
+			cout << "size " << deck.size() << " top " << deck.front() << "\n";
+			char t_op = deck.front(); deck.pop_front();
+			d_counter++;
+			if(t_op == 'D'){
+				t_dir--;
+				i--;
+			}
+			else if(t_op == 'L'){
+				t_dir++;
+				i--;
+			}
+			else{
+				if(t_dir == 1){
+					cy--;
+					tail[cx][cy] = 1;
+				}
+				else if(t_dir == 2){
+					cx--;
+					tail[cx][cy] = 1;	
+				}
+				else if(t_dir == 3){
+					cy++;
+					tail[cx][cy] = 1;
+				}
+				else{
+					cx++;
+					tail[cx][cy] = 1;
+				}
+			}
+			deck.push_back(t_op);
+		}
+
+		for(int i=d_counter; i < deck.size(); i++){
+			char temp = deck.front(); deck.pop_front();
+			deck.push_back(temp);
+		}
+
+
+		showmap(2, N);
+
+		char op = que.front(); que.pop();
+		deck.push_back(op);
+
+		cout << "[DEBUG] " << op << " ";		
+
+
+		if(op == 'D'){
+			dir++;
+		}
+		else if(op == 'L'){
+			dir--;
+		}
+		else{
+			move(dir);
+			second++;
+		}
+
+		if(map[head.first][head.second] == 1){
+			length++;
+		}
+
+		cout << head.first << " " << head.second << " " << length << " [" << second << "]" << "\n";
+
+		if(head.first < 1 || head.second < 1 || head.first > N || head.second > N || tail[head.first][head.second] == 1){
+			break;
+		}
+
+
+		if(length > 1){
+			for(int i=0; i<N; i++){
+				memset(tail[i], 0, sizeof(int) * N);
+			}
+		}
+	}
+
+	cout << second << "\n";
+	return 0;
+}
+
+/*
+   int cx = head.first;
+   int cy = head.second;
+   int t_dir = dir;
+
+   for(int i=1; i<length; i++){
+   char t_op = stack.top(); stack.pop();
+
+   cout << "\n[STACK] " << t_op << " ";		
+
+   if(t_op == 'D'){
+   t_dir++;
+   }
+   else if(t_op == 'L'){
+   t_dir--;
+   }
+   else{
+   if(t_dir == 1){
+   cy--;
+   tail[cx][cy] = 1;
+   }
+   else if(t_dir == 2){
+
+   tail[cx][cy] = 1;	
+   }
+   else if(t_dir == 3){
+   tail[cx][cy] = 1;
+   }
+   else{
+   tail[cx][cy] = 1;
+   }
+   }
+   cout << "\n";
+   } */

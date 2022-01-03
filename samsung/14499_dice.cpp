@@ -48,19 +48,31 @@ void move_dice(int op, int* x, int* y){
 }
 
 int rolling(int op, int x, int y, dice_t* dice){
+	int temp = dice->upward;
 	if(op == 1){
+		dice->upward = dice->left;
+		dice->left = dice->downward;
+		dice->downward = dice->right;
+		dice->right = temp;
 		
 	}
 	else if(op == 2){
-
+		dice->upward = dice->right;
+		dice->right = dice->downward;
+		dice->downward = dice->left;
+		dice->left = temp;
 	}
 	else if(op == 3){
-
+		dice->upward = dice->up;
+		dice->up = dice->downward;
+		dice->downward = dice->down;
+		dice->down = temp;
 	}
 	else{
-		if(dice->curr_up == 1){
-
-		}	
+		dice->upward = dice->down;
+		dice->down = dice->downward;
+		dice->downward = dice->up;
+		dice->up = temp;
 	}
 	return dice->upward;
 }
@@ -73,8 +85,6 @@ int main(){
 	cin >> N >> M >> x >> y >> K;
 	
 	dice_t dice;
-	dice.curr_up = 1;
-	dice.curr_right = 3;
 	dice.upward = 0;
 	dice.downward = 0;
 	dice.up = 0;
@@ -95,6 +105,14 @@ int main(){
 		
 		cout << rolling(op, x, y, &dice) << "\n";
 		move_dice(op, &x, &y);
+
+		if(map[x][y] == 0){
+			map[x][y] = dice.downward;
+		}
+		else{
+			dice.downward = map[x][y];
+			map[x][y] = 0;
+		}
 	}
 
 	return 0;

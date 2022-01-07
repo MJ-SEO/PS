@@ -9,6 +9,8 @@ using namespace std;
 char map[11][11];
 int mapc[11][11];
 
+char mmap[11][11];
+
 int N, M;
 
 int dx[4] = {-1, 1, 0, 0};	// 상하좌우
@@ -22,7 +24,7 @@ int blue_in = 0;
 int turn = 0;
 int samed = 0;
 
-pair<int, int> rolling(char color, int direction, int X, int Y, int* t){	// 1.red 2.blue
+pair<int, int> rolling(char color, int direction, int X, int Y, int* t, pair<int, int> op_c){ 
 	int nx = X;
 	int ny = Y;
 	int flag = 0;
@@ -30,7 +32,7 @@ pair<int, int> rolling(char color, int direction, int X, int Y, int* t){	// 1.re
 	while(1){
 		nx = nx + dx[direction];
 		ny = ny + dy[direction];
-//		cout << "NX NY " << nx << " " << ny << " " << "[" << map[nx][ny] << "]" <<  "\n";
+		cout << "NX NY " << nx << " " << ny << " " << "[" << map[nx][ny] << "]" <<  "\n";
 
 		if(map[nx][ny] == '#') {
 			nx = nx - dx[direction];
@@ -51,12 +53,12 @@ pair<int, int> rolling(char color, int direction, int X, int Y, int* t){	// 1.re
 		}
 
 		if(color == 'R'){
-			if(map[nx][ny] == 'B') flag = 1;
+			if(nx == op_c.first && ny == op_c.second) flag = 1;
 		}
 
 		if(color == 'B'){
-			if(map[nx][ny] == 'R') flag = 1;
-		}
+			if(nx == op_c.first && ny == op_c.second) flag = 1;
+		}					// TODO marble has to be distinguished from map 
 	}
 	
 	if(flag == 1){
@@ -70,7 +72,7 @@ pair<int, int> rolling(char color, int direction, int X, int Y, int* t){	// 1.re
 
 void BFS(){
 	while(red_in != 1){
-		if(blue_in == 1) break;
+		//if(blue_in == 1) break;
 		pair<int ,int> cur_red, cur_blue;
 	
 		cur_red = red_que.front(); red_que.pop();
@@ -86,10 +88,10 @@ void BFS(){
 			int rt=100000;
 			int bt=200000;
 
-			//cout << "[CURR RED] " << cur_red.first << " " << cur_red.second << "\n";
-			//cout << "[CURR BLUE] " << cur_blue.first << " " << cur_blue.second << "\n";
-			nx_red = rolling('R', i, cur_red.first, cur_red.second, &rt);
-			nx_blue = rolling('B', i, cur_blue.first, cur_blue.second, &bt);
+			cout << "[CURR RED] " << i << " | " << cur_red.first << " " << cur_red.second << "\n";
+			cout << "[CURR BLUE] " << i <<" | " << cur_blue.first << " " << cur_blue.second << "\n";
+			nx_red = rolling('R', i, cur_red.first, cur_red.second, &rt, cur_blue);
+			nx_blue = rolling('B', i, cur_blue.first, cur_blue.second, &bt, cur_red);
 			
 	//		cout << "DEBUG " << red_in << " " << blue_in << "\n";
 			if(blue_in == 1 && red_in == 1){
@@ -100,16 +102,16 @@ void BFS(){
 					samed = 1;
 			}
 
-			//cout << "[NEXT RED] " << nx_red.first << " " << nx_red.second << "\n";
-			//cout << "[CURR BLUE] " << cur_blue.first << " " << cur_blue.second << "\n";
+			cout << "[NEXT RED] " << i << " | " << nx_red.first << " " << nx_red.second << "\n";
+			cout << "[NEXT BLUE] " << i << " | " << nx_blue.first << " " << nx_blue.second << "\n\n";
 
 			if(nx_red.first == cur_red.first && nx_red.second == cur_red.second){
 				r_count++;	
 			}else{
 				red_que.push(nx_red);
-				cout << "[RED] " << nx_red.first << " " << nx_red.second << " [" << turn << "]\n";
 				mapc[nx_red.first][nx_red.second] = mapc[cur_red.first][cur_red.second] + 1;
-				turn = max(mapc[nx_red.first][nx_red.second], turn);
+				turn = max(mapc[nx_red.first][nx_red.second], mapc[cur_red.first][cur_red.second]);
+				cout << "[ENQUE RED] " << nx_red.first << " " << nx_red.second << " [" << turn << "]\n";
 			}
 
 			if(nx_blue.first == cur_blue.first && nx_blue.second == cur_blue.second){
@@ -117,12 +119,13 @@ void BFS(){
 			}
 			else{
 				blue_que.push(nx_blue);
-	//			cout << "[BLUE] " << nx_blue.first << " " << nx_blue.second << " [" << turn << "]\n";
+				cout << "[ENQUE BLUE] " << nx_blue.first << " " << nx_blue.second << " [" << turn << "]\n";
 			}
-
+		
 			if(r_count == 4) red_que.push({cur_red.first, cur_red.second});
 			if(b_count == 4) blue_que.push({cur_blue.first, cur_blue.second});
 		}
+		cout << "=========\n";
 	
 		if(turn > 10) break;	
 	}	

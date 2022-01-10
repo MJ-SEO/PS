@@ -34,8 +34,11 @@ int search(int x, int y, int direction, int cctv){
 	int counter = 0;
 
 	while(1){
-		nx = x + dx[direction];
-		ny = y + dy[direction];
+		nx = nx + dx[direction];
+		ny = nx + dy[direction];
+		cout << "NX NY " << nx << " " << ny << "\n";
+		
+		if(nx < 0 || ny < 0 || nx > N || ny > M) break;
 
 		if(map[nx][ny] == 6){
 			break;
@@ -52,16 +55,18 @@ int search(int x, int y, int direction, int cctv){
 }
 
 void BFS(){
-	
+	cout << "BFS\n";
+
 	while(!que.empty()){
 		tuple<int, int, int> temp = que.front(); que.pop();
-
+		cout << "TEMP \n";
 		for(int i=0; i<4; i++){
 			int cover = search(get<0>(temp), get<1>(temp), i, get<2>(temp));
 			min(blind_spot, empty_space-cover);
 		}
 	}
 
+	return;
 }
 
 int main(){
@@ -75,15 +80,15 @@ int main(){
 			cin >> map[i][j];
 			if(map[i][j] == 0) empty_space++;
 			if(map[i][j] < 6 && map[i][j] != 0){
-				cout << "DEBUG " << map[i][j] << "\n";
-				tuple<int, int, int> cctv = make_tuple(i, j, map[i][j]);
-				que.push(cctv);
-				//que.push(make_tuple(i, j, map[i][j]));
+				cout << "DEBUG " << i << " " << j << " " <<  map[i][j] << "\n";
+				que.push(make_tuple(i, j, map[i][j]));
 			}
 		}
 	}
 	
 	show_map();
+	
+	cout << "C1\n";
 
 	BFS();
 

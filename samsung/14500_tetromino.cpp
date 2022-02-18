@@ -8,30 +8,16 @@ int map[515][515];
 int N, M;
 int answer;
 
-int dx[5][4] = { } 
-int dy[5][4];
+int dt[5] = {0, 1, 2, 3, 4}
+int dx[5][4][4] = { } 
+int dy[5][4][4] = ;
 
-int get_sum(int type, int direction){
-	if(type == 0){
-		if(direction == 1){
-			
-		}
+int get_sum(int type, int direction, int x, int y){
+	int re = 0;
+	for(int i=0; i<4; i++){
+		re += map[x][y]
 	}
-	else if(type == 1){
-
-	}
-	else if(type == 2){
-
-	}
-	else if(type == 3){
-
-	}
-	else if(type == 4){
-
-	}
-	else{
-
-	}
+	return re;
 }
 
 int trial(int x, int y){

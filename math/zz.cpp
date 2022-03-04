@@ -13,8 +13,11 @@ const vector<vector<ll>> v = {
 	{0, 0, 0, 0, 0, 1, 0, 1},
 	{0, 0, 0, 0, 1, 0, 1, 0}
 };
+
 vector<vector<ll>> multiply(const vector<vector<ll>>& M1, const vector<vector<ll>>& M2){
+	
 	vector<vector<ll>> ret(8, vector<ll>(8));
+	
 	for(int i=0; i<8; i++){
 		for(int j=0; j<8; j++){
 			ll elem = 0;
@@ -27,18 +30,20 @@ vector<vector<ll>> multiply(const vector<vector<ll>>& M1, const vector<vector<ll
 	}
 	return ret;
 }
+
 int main(void){
 	ios_base::sync_with_stdio(false);
 	cin.tie(nullptr); cout.tie(nullptr);
 	cin >> D;
-	// D제곱 한 것의 1행 1열의 결과 P->P로 D만큼의 변을 거쳐서 갈 때, 나오는 경우의 수
+	
 	vector<vector<ll>> ans(8, vector<ll>(8));
 	for(int i=0; i<8; i++){
 		ans[i][i] = 1;
 	}
+	
 	vector<vector<ll>> factor = v;
 	while(D){
-		if( D & 1 ){
+		if( D % 2 ){
 			ans = multiply(ans, factor);
 			D -= 1;
 		}

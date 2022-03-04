@@ -66,9 +66,12 @@ int main(){
 	memcpy(map, origin, sizeof(origin));
 
 	which(Minute){
-		
-		m_multi(map, origin);
+		if(Minute % 2){
+			m_multi(map, origin);
 
+		}
+		
+		Minute = Minute / 2;
 	}
 
 	cout << map[0][0] << "\n";

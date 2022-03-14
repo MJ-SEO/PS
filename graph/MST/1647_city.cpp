@@ -7,45 +7,66 @@
 using namespace std;
 using tp = tuple<int,int,int>;
 
-vector<pair<int, int>> graph[100002];
-int list[100002];
+int N, M;
+int parent[100005];
+vector<tuple<int, int, int>> edge;
+int ANS;
+
+int find(int x){
+	if(x == parent[x]) return x;
+	return parent[x] = find(parent[x]);
+}
+
+void uni(int a, int b){
+	a = find(a);
+	b = find(b);
+
+	if(a < b) 
+		parent[b] = a;
+	else
+		parent[a] = b;
+}
 
 int main(){
 	ios::sync_with_stdio(0);
 	cin.tie(0);
-	int n, m;
-	cin >> n >> m;
 
-	for(int i=0; i<m; i++){
-		int a, b, weight;
-		cin >> a >> b >> weight;
-		graph[a].push_back({weight, b});
-		graph[b].push_back({weight, a});
-	}	
-	int count = 0;
-	int result = 0;
+	cin >> N >> M;
 
-	priority_queue<tp, vector<tp>, greater<tp>> que;
-	for(auto nxt : graph[1]){
-		que.push({nxt.first, 1, nxt.second});
-//		cout << "DEBUG " << nxt.first << " " << nxt.second << "\n";
+	for(int i=0; i<N; i++){
+		parent[i] = i;
 	}
-	list[1] = 1; // true
 	
-	while(1){
-		int cost, v1, v2;
-		tie(cost, v1, v2) = que.top(); que.pop();
-		if(list[v2]) continue;
-		list[v2] = 1;
-		result += cost;
-		count++;
-		if(count == n-1) break;
-		for(auto nxt : graph[v2]){
-			if(!list[nxt.second])
-				que.push({nxt.first, v2, nxt.second});
-		}
+
+	for(int i=0; i<M; i++){
+		int a, b, cost;
+		cin >> a >> b >> cost;
+
+		edge.push_back({cost, a, b});
 	}
-	cout << result;
+
+	sort(edge.begin(), edge.end());
+	int count = 0;
+
+	for(int i=0; i<M; i++){
+		int a, b, cost;
+		tie(cost, a, b) = edge[i];
+
+		cout << "DEBUG " << a << " " << b << " " << cost << "  ";
+
+		if(find(a) == find(b)) continue;
+
+		ANS += cost;
+		count++;
+		
+		cout << count << " !\n";
+
+		if(count == N-2) break;
+		
+		uni(a, b);
+	}
+
+	cout << ANS << "\n";
 
 	return 0;
 }

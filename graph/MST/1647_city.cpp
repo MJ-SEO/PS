@@ -52,15 +52,10 @@ int main(){
 		int a, b, cost;
 		tie(cost, a, b) = edge[i];
 
-		cout << "DEBUG " << a << " " << b << " " << cost << "  ";
-
 		if(find(a) == find(b)) continue;
 
 		ANS += cost;
 		count++;
-		
-		cout << count << " !\n";
-
 		if(count == N-2) break;
 		
 		uni(a, b);

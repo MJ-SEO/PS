@@ -10,12 +10,10 @@ using namespace std;
 #define X first
 #define Y second
 
-
 int dx[4] = {1, 0, -1, 0};
 int dy[4] = {0, 1, 0, -1};
 int map[500][500];
 bool visited[500][500];
-int result[500][500];
 
 int main(){
 	int n, m;

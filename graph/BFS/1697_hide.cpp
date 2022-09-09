@@ -18,7 +18,7 @@ int main(){
         queue<pair<int, int>> que;
         que.push({n, 0});
         check[n] = 1;
-    
+        
         while(!que.empty()){
                 pair<int, int> curr = que.front(); que.pop();
              //         cout << "DEBUG " << curr.first << " " << curr.second << "\n";

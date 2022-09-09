@@ -9,7 +9,6 @@ using namespace std;
 #define X first
 #define Y second
 
-
 int dx[4] = {1, 0, -1, 0};
 int dy[4] = {0, 1, 0, -1};
 int map[1000][1000];
@@ -35,8 +34,6 @@ int main(){
 	
 	while(!que.empty()){
 		pair<int,int> cur = que.front(); que.pop();
-//		if(cur.X == n-1 && cur.Y == m-1) break;
-//		cout << '(' << cur.X << ", " << cur.Y << ") -> ";
 		for(int i=0; i<4; i++){
 			int x = cur.X + dx[i];
 			int y = cur.Y + dy[i];	
@@ -59,6 +56,7 @@ int main(){
 		}
 	}     
 
+/*
 	for(int i=0; i<m; i++){
 		for(int j=0; j<n; j++){
 			cout << visited[i][j] << " ";
@@ -72,6 +70,7 @@ int main(){
 		}
 		cout << "\n";
 	}     
+*/
 
 	printf("%d\n", nn);
 		

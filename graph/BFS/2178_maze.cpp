@@ -12,7 +12,7 @@ using namespace std;
 int dx[4] = {1, 0, -1, 0};
 int dy[4] = {0, 1, 0, -1};
 int map[100][100];
-int result[100][100];
+int dist[100][100];
 
 int main(){
 	int n, m;
@@ -22,13 +22,13 @@ int main(){
 		for(int j=0; j<m; j++){
 			scanf("%1d", &map[i][j]);
 			if(map[i][j] == 1){
-				result[i][j] = -1;
+				dist[i][j] = -1;
 			}
 		}
 	}
 	
 	queue<pair<int,int>> que;
-	result[0][0] = 1;
+	dist[0][0] = 1;
 	que.push({0,0});
 	
 	while(!que.empty()){
@@ -40,14 +40,14 @@ int main(){
 			int y = cur.Y + dy[i];	
 			if(x < 0 || x >= n || y < 0 || y >= m) continue;
 			if(map[x][y] != 1) continue;
-			if(result[x][y] >= 0) continue;
+			if(dist[x][y] >= 0) continue;
 
 			que.push({x,y});
-			result[x][y] = result[cur.X][cur.Y] + 1;
+			dist[x][y] = dist[cur.X][cur.Y] + 1;
 		}
 	}
 	
-	printf("%d\n", result[n-1][m-1]);	
+	printf("%d\n", dist[n-1][m-1]);	
 		
 	return 0;
 }

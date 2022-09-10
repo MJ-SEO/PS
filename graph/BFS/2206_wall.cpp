@@ -9,66 +9,70 @@ using namespace std;
 #define X first
 #define Y second
 
-
 int dx[4] = {1, 0, -1, 0};
 int dy[4] = {0, 1, 0, -1};
-int dz[6] = {};
-int map[1000][1000][2];
-bool visited[1000][1000];
-int result[1000][1000];
+int map[1001][1001];
+int dist[1001][1001][2];
 
 int main(){
-	int n, m;
-	scanf("%d %d", &n, &m);
 
+	int N, M;
+	cin >> N >> M;
 
-	for(int i=0; i<n; i++){
-		for(int j=0; j<m; j++){
-			scanf("%1d", &map[i][j]);
-		}
-	}
-	
-	for(int i=0; i<n; i++){
-		for(int j=0; j<m; j++){
-			printf("%d", map[i][j]);
-		}
-		printf("\n");
-	}
+	if(N == 1 && M == 1){
+		cout << 1 << "\n";
+		return 0;
+	} 
 
-	for(int i=0; i<n; i++){
-		for(int j=0; j<m; j++){
-			result[i][j] = -1;
+	for(int i=0; i<N; i++){
+		string temp;
+		cin >> temp;
+		for(int j=0; j<M; j++){
+			map[i][j] = temp[j];
 		}
 	}
 
-	queue<tuple<int,int,int> que;
-//	queue<pair<int,int>> que;
-	visited[0][0] = 1;
-	result[0][0] = 1;
-	que.push({0,0,0});
+	queue<tuple<int, int, int>> que;
+	que.push(make_tuple(0,0,0));
+	dist[0][0][0] = 1;
+
 	int flag = 0;
 
 	while(!que.empty()){
-//		pair<int,int> cur = que.front(); que.pop();
-		tuple<int,int,int> cur = que.front(); que.pop();
-//		if(cur.X == n-1 && cur.Y == m-1) break;
-//		cout << '(' << cur.X << ", " << cur.Y << ") -> ";
-
+		tuple<int, int, int> cur = que.front(); que.pop();
 		for(int i=0; i<4; i++){
-			int x = get<0>(cur) + dx[i];
-			int y = get<1>(cur) + dy[i];	
-			int z = 0;
-			if(x < 0 || x >= n || y < 0 || y >= m) continue;
-			if(visited[x][y] == 1) continue;
-			if() continue;
+			int nx = get<0>(cur) + dx[i];
+			int ny = get<1>(cur) + dy[i];
+			int nz = get<2>(cur);
+
+			if(nx < 0 || ny < 0 || nx >= N || ny >= M) continue;
+			if(dist[nx][ny][nz] > 0) continue;
+
+			if(map[nx][ny] == '0'){
+				que.push(make_tuple(nx, ny, nz));
+				dist[nx][ny][nz] = dist[get<0>(cur)][get<1>(cur)][get<2>(cur)] + 1;
+			} 
 			
-			visited[x][y] = 1;
-			que.push({x,y,z});
-			result[x][y] = result[cur.X][cur.Y] + 1;
+			if(map[nx][ny] == '1' && nz == 0){
+				que.push(make_tuple(nx, ny, 1));
+				dist[nx][ny][1] = dist[get<0>(cur)][get<1>(cur)][get<2>(cur)] + 1;
+			}
 		}
 	}
+	
 
-	printf("%d\n", result[n-1][m-1]);	
-		
+	if(dist[N-1][M-1][0] == 0 && dist[N-1][M-1][1] == 0){
+		cout << "-1" << "\n";
+	}
+	else if(dist[N-1][M-1][0] == 0){
+		cout << dist[N-1][M-1][1] << "\n";
+	}
+	else if(dist[N-1][M-1][1] == 0){
+		cout << dist[N-1][M-1][0] << "\n";
+	}
+	else{
+		cout << min(dist[N-1][M-1][0], dist[N-1][M-1][1]) << "\n";
+	}
+
 	return 0;
 }

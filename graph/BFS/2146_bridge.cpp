@@ -6,7 +6,7 @@
 using namespace std;
 int a[101][101];
 int check[101][101]; 
-int dist[101][101] = { 0 };
+int dist[101][101];
 int dx[] = { 0, 0, 1, -1 };
 int dy[] = { 1, -1, 0, 0 };
 
@@ -22,7 +22,7 @@ void dfs(int x, int y, int cnt)
 		int ny = y + dy[i];
 		if (nx >= 0 && ny >= 0 && nx < n && ny < n)
 		{
-			if (check[nx][ny] == 0 &&3927명
+			if (check[nx][ny] == 0 &&
 					a[nx][ny] == 1)
 			{
 				dfs(nx, ny, cnt);

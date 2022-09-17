@@ -12,7 +12,7 @@ void func(int x, int y, int n){
                 return;
         }
 
-        if(r < n + x && r >= x && c < y+n && c >=y){
+        if(r < n + x && r >= x && c < y+n && c >= y){
                 func(x, y, n/2);
                 func(x, y+n/2, n/2);
                 func(x+n/2, y, n/2);
@@ -20,6 +20,7 @@ void func(int x, int y, int n){
         }
         else{
                 result += n*n;
+                cout << result << "\n";
         }
 }
 

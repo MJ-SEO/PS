@@ -2,38 +2,52 @@
 
 using namespace std;
 
-int map[130][130];
+int map[2200][2200];
 
-int white;
-int blue;
+int zero;
+int mone;
+int pone;
 
-void func(int y, int x, int size){
-	
-	int flag = map[y][x];
-
-	for(int i=y; i< y+size; i++){	
-		for(int j = x; j< x+size; j++){
-			if(flag == 0 && map[i][j] == 1){
-				flag = 2;
-			}
-			else if(flag == 1 && map[i][j] == 0){
-				flag = 2;
-			}
-			if(flag == 2){
-				func(y, x, size/2);
-				func(y, x + size/2, size/2);
-				func(y + size/2, x, size/2);
-				func(y + size/2, x + size/2, size/2);
-				return;
+int check(int x, int y, int size){			// 3^N size의 map이 전부 같은 종이인지 check
+	int flag = map[x][y];
+	for(int i=x; i < (size + x); i++){
+		for(int j=y; j < (size + y); j++){
+			if(map[i][j] != flag){	 // flag for distinguish
+				return 2;
 			}
 		}
 	}
+	return flag;
+}
 
-	if(flag == 0){
-		white++;
+void func(int x, int y, int size){
+	if(size == 0){	// base condition
+		return;
 	}
-	else{
-		blue++;
+
+	int color = check(x, y, size);
+	if(color == -1){	// counting number
+		mone++;
+	}
+	else if(color == 0){
+		zero++;
+	}
+	else if(color == 1){
+		pone++;
+	}
+	else{		// recursive function
+		int scalar = size/3;
+		func(x, y, scalar);
+		func(x + scalar, y, scalar);
+		func(x + 2*scalar, y, scalar);
+	
+		func(x, y + scalar, scalar);
+		func(x + scalar, y + scalar, scalar);
+		func(x + 2*scalar, y + scalar, scalar);
+
+		func(x, y + 2*scalar, scalar);
+		func(x + scalar, y + 2*scalar, scalar);
+		func(x + 2*scalar, y + 2*scalar, scalar);
 	}
 }
 
@@ -42,20 +56,15 @@ int main(){
 	int n;
 	cin >> n;
 
-	for(int i=0; i<130; i++){
-		for(int j=0; j<130; j++){
-			map[i][j] = 2;
-		}
-	}
-
-	for(int i=0; i<n; i++){	
+	for(int i=0; i<n; i++){
 		for(int j=0; j<n; j++){
-			scanf("%d", &map[i][j]);
+			cin >> map[i][j];
 		}
-	}
+	}         
 
-	func(0, 0, n);
+	func(0, 0, n);      
 
-	cout << white << "\n" << blue << "\n";
+	cout << mone << "\n" << zero << "\n" << pone << "\n";
+
 	return 0;
 }

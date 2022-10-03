@@ -52,6 +52,7 @@ int main(){
 
 	func(0, 0, n);
 
+	cout << "zz\n";
 //	cout << white << "\n" << blue << "\n";
 	return 0;
 }

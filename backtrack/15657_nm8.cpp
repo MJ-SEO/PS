@@ -4,11 +4,11 @@
 using namespace std;
 
 int n, m;
-int arr[10];
+int store[10];
 bool isused[10];
 int result[10];
 
-void func(int k){
+void func(int k, int t){
 	if(k==m){
 		for(int i=0; i<m; i++){
 			cout << result[i] << " ";
@@ -17,13 +17,9 @@ void func(int k){
 		return;
 	}
 
-	for(int i=0; i<n; i++){
-		if(!isused[i]){
-			result[k] = arr[i];
-			isused[i] = 1;
-			func(k+1);
-			isused[i] = 0;
-		}
+	for(int i=t; i<n; i++){
+		result[k] = store[i];
+		func(k+1, i);
 	}
 }
 
@@ -33,11 +29,10 @@ int main(){
 	cin >> n >> m;
 
 	for(int i=0; i<n; i++){
-		cin >> arr[i];
+		cin >> store[i];
 	}
 	
-	sort(arr, arr+n);
-
-	func(0);
+	sort(store, store+n);
+	func(0, 0);
 	return 0;
 }

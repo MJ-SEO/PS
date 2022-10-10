@@ -4,7 +4,7 @@
 using namespace std;
 
 int n, m;
-int arr[10];
+int store[10];
 int result[10];
 bool isused[10];
 
@@ -17,16 +17,16 @@ void func(int k){
 		return;
 	}
 
-	int dupl = 0; // Wht here?
+	int dupl = 0; // Why here?
 
 	for(int i=0; i<n; i++){
-		if(!isused[i] && arr[i]!=dupl){
-			result[k] = arr[i];
-			dupl = arr[i];
-			isused[i] = 1;
+		if(isused[i] == false && store[i] != dupl){
+			dupl = store[i];
 
+			isused[i] = true;
+			result[k] = store[i];
 			func(k+1);
-			isused[i] = 0;
+			isused[i] = false;
 		}
 	}
 }
@@ -38,12 +38,10 @@ int main(){
 	cin >> n >> m;
 	
 	for(int i=0; i<n; i++){
-		int t;
-		cin >> t;
-		arr[i] = t;
+		cin >> store[i];
 	}
 
-	sort(arr, arr+n);
+	sort(store, store+n);
 
 	func(0);
 	return 0;

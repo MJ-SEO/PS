@@ -15,7 +15,7 @@ void func(int k){
   }
 
   for(int i = 1; i <= n; i++){ 
-    if(!isused[i]){
+    if(isused[i] == false){
       isused[i] = true;
       arr[k] = i;
       func(k+1);

@@ -4,24 +4,18 @@ using namespace std;
 
 int N, S;
 int result;
-
 int store[25];
-bool isused[25];
 
-void func(int k){
-    if(k == S){
-        result++;
+void func(int cur, int sum){
+    if(cur == N){
+        if(sum == S){
+            result++;
+        }
         return;
     }
 
-    for(int i=0; i<N; i++){
-        if(!isused[i]){
-            isused[i] = 1;
-            k += store[i];
-            func(k);
-            isused[i] = 0;
-        }
-    }
+    func(cur+1, sum);
+    func(cur+1, sum+store[cur]);
 }
 
 int main(void){
@@ -34,7 +28,8 @@ int main(void){
         cin >> store[i];
     }
 
-    func(0);
-
+    func(0, 0);
+  
+    if(S == 0) result--;
     cout << result << "\n";
 }

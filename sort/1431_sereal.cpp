@@ -39,8 +39,7 @@ int main(){
 	for(int i=0; i<n; i++){
 		string word;
 		cin >> word;
-		if(find(arr.begin(), arr.end(), word) == arr.end())
-			arr.push_back(word);
+		arr.push_back(word);
 	}
 	
 	sort(arr.begin(), arr.end(), cmp);

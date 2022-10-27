@@ -27,10 +27,17 @@ int main(){
 				sum = max(sum, dp[j]);
 			}
 		}
+		cout << sum << " ";
 		dp[i] = sum + arr[i];
 		result = max(result, dp[i]);
 	}
 	
+	cout << "\n";
+	for(int i=1; i<=n; i++){
+		cout << dp[i] << " ";
+	}
+	cout << "\n";
+
 	cout << result;
 	return 0;
 }

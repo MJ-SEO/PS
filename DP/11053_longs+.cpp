@@ -16,17 +16,14 @@ int main(){
 
 	for(int i=0; i<n; i++){
 		cin >> arr[i];
+		d[i] = 1;
 	}
 
-	d[0] = 1;
 	
-	for(int i=1; i<n; i++){
-		d[i] = 1;
-		int mx = 0;
+	for(int i=0; i<n; i++){
 		for(int j=0; j<i; j++){
-			if(d[j] > mx && arr[j] < arr[i]){
-				mx = d[j];
-				d[i] = mx + 1;
+			if(arr[j] < arr[i]){
+				d[i] = max(d[i], d[j] + 1);
 			}
 		}
 	}

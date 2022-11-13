@@ -20,12 +20,7 @@ int main(){
 
         res = gcd(a,b);
     
-	cout << "[DEBUG] " << res << " " << "\n";
-
-	for(int i=0; i<res; i++){
-		cout << 1;
-	}
-	cout << "\n";
+		cout << "[DEBUG] " << res << " " << "\n";
 
         return 0;
 }

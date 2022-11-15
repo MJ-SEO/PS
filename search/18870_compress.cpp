@@ -4,30 +4,21 @@
 
 using namespace std;
 
-int main(){
+int n;
+int x[1000005];
+vector<int> uni; // unique
+
+int main(void){
 	ios::sync_with_stdio(0);
 	cin.tie(0);
-	
-	int n;
+
 	cin >> n;
-	int arr[n];
-	for(int i=0; i<n; i++){
-		cin >> arr[i];
-	}	
-	sort(arr, arr+n);
-
-	int m;
-	cin >> m;
-	int result[m];
-	for(int i=0; i<m; i++){
-		int temp;
-		cin >> temp;
-		cout << upper_bound(arr, arr+n, temp) - lower_bound(arr, arr+n, temp) << " ";
+	for(int i = 0; i < n; i++){
+		cin >> x[i];
+		uni.push_back(x[i]);
 	}
-
-	cout << "\n";
-
-
-	return 0;
+	sort(uni.begin(), uni.end());
+	uni.erase(unique(uni.begin(), uni.end()), uni.end());
+	for(int i = 0; i < n; i++)
+		cout << lower_bound(uni.begin(), uni.end(), x[i]) - uni.begin() << ' ';
 }
-

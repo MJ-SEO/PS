@@ -5,6 +5,7 @@
 using namespace std;
 
 int N;
+int cnt;
 vector<int> primes;
 
 bool isprime(int n){
@@ -26,21 +27,16 @@ int main(){
 		return 0;
 	}
 
-	int cnt = 0;
-
 	for(int i=2; i<=N; i++){
 		if(isprime(i)) primes.push_back(i);
 	}
 
 	int en = 0;
 	int tot = primes[0];
-
 	int size = primes.size();
 
 	for(int st=0; st<size; st++){
-		if(tot == N){
-			cnt++;
-		}
+		if(tot == N) cnt++;
 
 		while(en < size && tot < N){
 			en += 1;
@@ -57,7 +53,6 @@ int main(){
 	}
 
 	cout << cnt << "\n";
-
 	return 0;
 }
 

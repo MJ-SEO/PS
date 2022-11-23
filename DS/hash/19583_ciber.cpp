@@ -20,13 +20,13 @@ int main(){
 	ios::sync_with_stdio(0);
 	cin.tie(0);
 
-	string start, end, stream;
-	cin >> start >> end >> stream;
+	string S, E, Q;
+	cin >> S >> E >> Q;
 
 	int start_time, end_time, stream_time;
-	start_time = timetoint(start);
-	end_time = timetoint(end);
-	stream_time = timetoint(stream);
+	start_time = timetoint(S);
+	end_time = timetoint(E);
+	stream_time = timetoint(Q);
 
 	unordered_set<string> start_list;
 	unordered_set<string> attend_list;
@@ -49,4 +49,3 @@ int main(){
 	cout << attend_list.size() << "\n";
 	return 0;
 }
-

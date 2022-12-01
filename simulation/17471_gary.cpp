@@ -31,7 +31,7 @@ int main(){
 		for(int j=0; j<num; j++){
 			int adj;
 			cin >> adj;
-			vector[i].push_back(adj);
+			city[i].push_back(adj);
 		}
 	}
 

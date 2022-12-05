@@ -21,9 +21,6 @@ int main(){
 	for(int i=0; i<n; i++){
 		for(int j=0; j<m; j++){
 			scanf("%1d", &map[i][j]);
-			if(map[i][j] == 1){
-				dist[i][j] = -1;
-			}
 		}
 	}
 	
@@ -40,7 +37,7 @@ int main(){
 			int y = cur.Y + dy[i];	
 			if(x < 0 || x >= n || y < 0 || y >= m) continue;
 			if(map[x][y] != 1) continue;
-			if(dist[x][y] >= 0) continue;
+			if(dist[x][y] > 0) continue;
 
 			que.push({x,y});
 			dist[x][y] = dist[cur.X][cur.Y] + 1;

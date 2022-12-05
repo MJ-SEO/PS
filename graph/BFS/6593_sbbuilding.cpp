@@ -84,18 +84,7 @@ int main(){
 	else{
 		cout << "Trapped!\n";
 	}
-
-/*
-	for(int i=0; i<height; i++){
-		for(int r=0; r<row; r++){
-			for(int c=0; c<col; c++){
-				cout << dist[i][r][c] << " ";
-			}
-			cout << "\n";
-		}
 	}
-*/
-	}
-
+	
 	return 0;
 }

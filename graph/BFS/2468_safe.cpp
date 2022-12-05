@@ -23,9 +23,6 @@ void clearvisited(int n){
 	}
 }
 
-void clearque(){
-}
-
 int main(){
 	int mx = 0;
 	int n;
@@ -37,8 +34,6 @@ int main(){
 			scanf("%d", &map[i][j]);
 		}
 	}
-	
-	queue<pair<int, int>> que;
 
 	for(int k = 0; k< 101; k++){
 	clearvisited(n);

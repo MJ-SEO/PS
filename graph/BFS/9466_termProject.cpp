@@ -2,32 +2,39 @@
 #include <algorithm>
 #include <vector>
 #include <queue>
-
 using namespace std;
-
-#define X first
-#define Y second
-
-int dx[4] = {1, -1, 0, 0};
-int dy[4] = {0, 0, 1, -1}
-
+ 
 int N;
-queue<pair<int, int>> que;
+int cnt;
 
-void bfs(){
+int student[100005];
+int visited[100005];
+int hasteam[100005];
+
+queue<int> que;
+
+void bfs(int target){
+	vector<int> chain;
+
 	while(!que.empty()){
-		pair<int, int> cur = que.front(); que.pop();
-
-		for(int i=0; i<4; i++){
-			int nx = cur.X + dx[i];
-			int ny = cur.Y + dy[i];
-
-			if(nx < 0 || ny < 0 || nx >= M || ny >=N) continue;
-			if(visited[nx][ny] || map[nx][ny]) continue;
-
-			que.push({nx, ny});
-			visited[nx][ny] = 1;
+		int cur = que.front(); que.pop();
+		chain.push_back(cur);
+		
+		if(student[cur] == target){
+			for(auto e : chain){
+				hasteam[e] = 1;
+				cnt++;
+			}
+			break;
 		}
+		if(visited[student[cur]]) break;
+
+		que.push(student[cur]);
+		visited[student[cur]] = 1;
+	}
+
+	for(auto e : chain){
+		visited[e] = 0;
 	}
 }
 
@@ -40,10 +47,23 @@ int main(){
 
 	while(T--){
 		cin >> N;
-		for(int i=0; i<N; i++){
-			for(int j=0; j<N; j++){
-				cin >> map[i][j];
-			}
+		cnt = 0;
+
+		for(int i=1; i<=N; i++){
+			cin >> student[i];
+		}
+
+		for(int i=1; i<=N; i++){
+			if(hasteam[i] == 1) continue;
+			que.push(i);
+			visited[i] = 1;
+			bfs(i);
+		}
+
+		cout << N - cnt << "\n";
+		
+		for(int i=1; i<=N; i++){
+			hasteam[i] = 0;
 		}
 	}
 

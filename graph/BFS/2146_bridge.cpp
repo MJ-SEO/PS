@@ -7,8 +7,8 @@ using namespace std;
 int a[101][101];
 int check[101][101]; 
 int dist[101][101];
-int dx[] = { 0, 0, 1, -1 };
-int dy[] = { 1, -1, 0, 0 };
+int dx[4] = { 0, 0, 1, -1 };
+int dy[4] = { 1, -1, 0, 0 };
 
 int n;
 
@@ -65,8 +65,7 @@ int main(void)
 					dist[i][j] = 0;
 				}
 			}
-		while (!q.empty())
-		{
+		while (!q.empty()){
 			int x = q.front().first;
 			int y = q.front().second;
 			q.pop();
